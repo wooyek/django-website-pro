@@ -1,0 +1,32 @@
+# Core django + esentials
+Django
+gunicorn
+pytz
+BabelDjango
+django-debug-toolbar
+
+# Assets
+django_assets
+webassets
+yuicompressor
+
+# Images
+easy-thumbnails
+sorl-thumbnail
+pillow
+django-filer
+
+#Async tasks
+celery
+django-celery
+
+# Misc
+django-bootstrap-form
+markdown
+django-guardian
+djrill
+django-reversion
+djangorestframework
+requests
+psycopg2
+
