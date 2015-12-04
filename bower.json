@@ -1,0 +1,30 @@
+{
+  "name": "django-website-pro",
+  "version": "0.0.0",
+  "authors": [
+    "Janusz Skonieczny @wooyek"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/wooyek/django-website-pro",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass-official": "~3.3.6",
+    "font-awesome": "~4.5.0",
+    "entypo": "*",
+    "typicons": "~2.0.7",
+    "select2": "~4.0.1",
+    "flexslider": "~2.6.0",
+    "moment": "~2.10.6",
+    "html5shiv": "~3.7.3",
+    "respond": "~1.4.2",
+    "eonasdan-bootstrap-datetimepicker": "~4.17.37",
+    "jquery-ui": "~1.11.4"
+  }
+}
