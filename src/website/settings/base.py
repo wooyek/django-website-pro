@@ -13,17 +13,12 @@ import os
 
 logging.debug("Importing: %s" % __file__)
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 ROOT_DIR = os.path.dirname(BASE_DIR)
 
-import socket
-
-HOSTNAME = socket.gethostname()
-DEV = HOSTNAME.lower() in ("vagrant", 'devbox')
-QA = HOSTNAME.lower().split(".", 1)[0].endswith('qa')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = DEV
+DEBUG = False
 
 SITE_ID = 1
 
@@ -184,14 +179,9 @@ THUMBNAIL_PROCESSORS = (
 
 ASSETS_LOAD_PATH = STATIC_ROOT
 ASSETS_ROOT = os.path.join(ROOT_DIR, 'assets', "compressed")
-ASSETS_DEBUG = DEV  # Enable when testing compressed file in DEBUG mode
-if ASSETS_DEBUG:
-    ASSETS_URL = STATIC_URL
-    ASSETS_MANIFEST = "json:{}".format(os.path.join(ASSETS_ROOT, "manifest.json"))
-else:
-    ASSETS_URL = STATIC_URL + "assets/compressed/"
-    ASSETS_MANIFEST = "json:{}".format(os.path.join(STATIC_ROOT, 'assets', "compressed", "manifest.json"))
-ASSETS_AUTO_BUILD = ASSETS_DEBUG
+ASSETS_URL = STATIC_URL + "assets/compressed/"
+ASSETS_MANIFEST = "json:{}".format(os.path.join(STATIC_ROOT, 'assets', "compressed", "manifest.json"))
+ASSETS_AUTO_BUILD = DEBUG
 ASSETS_MODULES = ('website.assets',)
 
 # Djrill: Mandrill Transactional Email for Django
@@ -199,16 +189,3 @@ ASSETS_MODULES = ('website.assets',)
 MANDRILL_API_KEY = "{{ MANDRILL_API_KEY|default:'TODO: Put your Mandrill api key here' }}"
 EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 
-
-# -----------------------------------------------------------------
-# Override or suplement settings for based on environment
-
-if DEV:
-    from .settings_dev import *
-elif QA:
-    from .settings_qa import *
-else:
-    from .settings_prd import *
-
-logging.debug("DB: %s" % DATABASES['default']['NAME'])
-logging.debug("DATABASES: %s" % DATABASES)
