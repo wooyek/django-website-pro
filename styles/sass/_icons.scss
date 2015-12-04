@@ -1,0 +1,39 @@
+.calendar-stack {
+  position: relative;
+  display: inline-block;
+
+  .icon-calendar-empty,
+  .calendar-day {
+    position: absolute;
+  }
+
+  .calendar-day {
+    top: (7em / 8);
+    left: (1em / 8);
+    width: (11em / 8);
+    height: (6em / 8);
+    font-family: sans-serif;
+    font-size: (8em / 14);
+    font-weight: 700;
+    line-height: (8em / 14);
+    text-align: center;
+  }
+}
+
+.news-icon {
+  margin-top: $line-height-computed;
+  margin-bottom: ($line-height-computed / 2);
+  text-align: center;
+}
+
+.fa-6x {
+  font-size: 6em;
+}
+
+.fa-7x {
+  font-size: 7em;
+}
+
+.fa-8x {
+  font-size: 8em;
+}

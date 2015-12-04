@@ -179,6 +179,7 @@ THUMBNAIL_PROCESSORS = (
 
 ASSETS_LOAD_PATH = STATIC_ROOT
 ASSETS_ROOT = os.path.join(ROOT_DIR, 'assets', "compressed")
+ASSETS_DEBUG = DEBUG
 ASSETS_URL = STATIC_URL + "assets/compressed/"
 ASSETS_MANIFEST = "json:{}".format(os.path.join(STATIC_ROOT, 'assets', "compressed", "manifest.json"))
 ASSETS_AUTO_BUILD = DEBUG

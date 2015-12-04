@@ -19,9 +19,10 @@ DATABASES = {
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
+ASSETS_DEBUG = DEBUG
+ASSETS_AUTO_BUILD = DEBUG
 ASSETS_URL = STATIC_URL
 ASSETS_MANIFEST = "json:{}".format(os.path.join(ASSETS_ROOT, "manifest.json"))
-ASSETS_AUTO_BUILD = DEBUG
 
 # Sync task testing
 # http://docs.celeryproject.org/en/2.5/configuration.html?highlight=celery_always_eager#celery-always-eager

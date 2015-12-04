@@ -1,0 +1,35 @@
+{% extends "layout/base.html" %}
+{% block fold %}
+    <div class="container start">
+        <div class="row">
+            <div class="col-md-24">
+                <div class="jumbotron">
+                    <h1>Django Website Pro</h1>
+
+                    <p>A project template with event more batteries</p>
+
+                    <p><a class="btn btn-primary btn-lg" href="https://github.com/wooyek/django-website-pro">See the source Luke!</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block main %}
+    <div class="container start">
+        <div class="row">
+            <div class="col-md-16 col-md-push-4">
+            <ol class="task-list">
+                <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked="checked" disabled="disabled"> A more robust folder structure separating code from other project stuff</li>
+                <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked="checked" disabled="disabled"> Settings separation for different environment (eg. local vs production)</li>
+                <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked="checked" disabled="disabled"> Vagrant setup for quick virtual machine configuration</li>
+                <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked="checked" disabled="disabled"> Nginx, gunicorn and supervisor configuration </li>
+                <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked="checked" disabled="disabled"> Git push to deploy repo setup </li>
+                <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled"> Assets management out of the box</li>
+                <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled"> Bower configuration for usual front end component</li>
+                <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled"> Post startproject setup tasks (venv creation, requirements installation, etc)</li>
+                <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled"> Sample SASS and Boostrap based stylesheet and base templates</li>
+            </ol>
+            </div>
+        </div>
+    </div>
+{% endblock %}

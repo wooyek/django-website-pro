@@ -1,0 +1,115 @@
+@import "compass";
+@import "bootstrap_variables";
+@import "bootstrap/mixins/image";
+@import "bootstrap/mixins/grid";
+//@import "bootstrap/mixins/center-block";
+//@import "bootstrap/utilities";
+@import "compass/utilities/sprites";
+
+html {
+  // always visible schoolbar to remove flicker effect
+  // when switching between long/short pages
+  overflow: -moz-scrollbars-vertical;
+  overflow-y: scroll;
+}
+
+body {
+  // Padding for Django CMS toolbar
+  .editing {
+    div.navbar {
+      margin-top: 35px;
+    }
+  }
+}
+
+@media (max-width: $screen-sm-max) {
+  p {
+    font-size: $font-size-base + 2;
+  }
+}
+
+$margin-default: floor($line-height-computed * 2);
+$margin-top: $margin-default;
+$margin-bottom: $margin-default / 2;
+$padding-section: $jumbotron-padding;
+$padding-bottom-paragraph: $line-height-computed / 2;
+
+$padding-top-header: $margin-top;
+$padding-top-header-sm: $padding-top-header;
+
+section#alerts {
+  position: fixed;
+  top: $margin-default;
+  width: 100%;
+  z-index: 1000;
+}
+
+.main-inner {
+  padding-bottom: $margin-default;
+}
+
+$footer-height: 150px;
+$footer-margin: $padding-bottom-paragraph;
+$footer-bottom-padding: 0;
+$footer-border-width: 1px;
+$footer-background-color: darken($navbar-default-bg, 3%);
+$footer-border-color: darken($footer-background-color, 10%);
+$footer-shim-height: $footer-height + $footer-border-width + $footer-bottom-padding + $footer-margin;
+
+// For footer to have some padding the footer-shim wold have to have
+// height = $footerHeight + $footerMargin
+// cannot do with current sticky-footer, implement new one if needed
+@import "compass/layout";
+@include sticky-footer($footer-shim-height, "#root", "#footer-shim", "footer");
+
+// Ember wraps everything in a div
+body > .ember-view {
+  height: 100%;
+}
+
+#footer-shim {
+  margin-top: $footer-margin;
+}
+
+footer {
+  position: relative;
+  padding: $padding-section 0 $footer-bottom-padding;
+  border-top: $footer-border-width solid $footer-border-color;
+  text-align: center;
+  background: $footer-background-color;
+  a, a:visited {
+    color: #000;
+  }
+  a:hover {
+    text-decoration: underline;
+    color: #000;
+  }
+  ul {
+    padding-left: 17px;
+  }
+  @media (max-width: $screen-sm-max) {
+    ul, h2 {
+      padding-left: $padding-section;
+    }
+  }
+  ul {
+    padding-left: 0;
+    margin-top: 20px;
+    li {
+      display: inline;
+      padding: 0 2px;
+    }
+    li:first-child {
+      padding-left: 0;
+    }
+    li:after {
+      content: "·";
+      padding-left: 8px;
+    }
+    li:last-child:after {
+      content: "";
+      padding-left: 0;
+    }
+  }
+}
+
