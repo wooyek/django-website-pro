@@ -4,7 +4,7 @@ Template for Django project, ~~includes~~ will include all the components that u
 Usage:
 
 ```bash
-django-admin startproject --extension=py,md,sh,conf --template=https://github.com/wooyek/django-website-pro MyProject
+django-admin startproject --extension=py,md,sh,conf --template=https://github.com/wooyek/django-website-pro/archive/master.zip MyProject
 cd MyProject
 inv bootstrap
 ```
@@ -21,9 +21,9 @@ inv bootstrap
 7. [ ] Post startproject setup tasks (venv creation, requirements installation, etc)
 8. [ ] Sample SASS and Boostrap based stylesheet and base templates
 
-## Disclaimer
+## Work in progress
 
-This template is usable as it is, but for now it is based on my previous work and is heavily opinionated. 
+This template is already usable as it is, but for now it is based on my previous work and it is heavily opinionated. 
 I expect it to change when I'll — with your help — try to make it more universal.
   
 Anyway, bacause it's a template there's no need for future support. You should basically take it and modify it to your preferences. 
