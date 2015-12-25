@@ -83,7 +83,9 @@ def bootstrap(docs=None):
     run('git commit -m init', warn=True)
     create_venv()
     install_requirements()
+    run('bower install')
     setup_db()
+    run('compass compile styles')
 
 
 @task
