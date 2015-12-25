@@ -1,0 +1,27 @@
+{% extends 'error_base.html' %}
+{% load i18n %}
+{% block title %}{% blocktrans %}Page not found{% endblocktrans %}{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="margin: 20px 0 0">
+                <div class="jumbotron ">
+                    <h1>{% blocktrans %}Przepraszamy, nie znamy takiego adresu{% endblocktrans %}</h1>
+                    <p>HTTP 404 Not Found</p>
+                </div>
+
+                <p class="lead text-primary">{{ request.build_absolute_uri }}</p>
+                <p>Jeśli powyższy adres został wygenerowany automatycznie to prosimy o zgłoszenie błędu:
+                <p>Jeśli adres został podany ręcznie, proszę sprawdzić czy został poprawnie wpisany.</p>
+
+                <div class="error-actions" style="margin: 20px 0">
+                    <a href="/" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span> {% blocktrans %}Przejdź na stronę główną{% endblocktrans %} </a>
+                    <a href="mailto:err@motylki.edu.pl?subject=Błąd! Proszę o naprawę. {{ message }}&body={{ message }}%20{{ request.url }}" class="btn btn-default btn-lg">
+                        <span class="glyphicon glyphicon-envelope"></span> {% blocktrans %}Poproś o interwencję{% endblocktrans %}
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

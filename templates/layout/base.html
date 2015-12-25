@@ -1,0 +1,18 @@
+﻿{% extends "layout/body.html" %}
+
+{% block body %}
+    <div id="root">
+        {% include "layout/header.html" %}
+        {% block fold %}{% endblock %}
+        <section id="content">
+            {% include "bootstrap/alerts.html" %}
+            <section class="main">
+                <div class="main-inner">
+                    {% block main %}{% endblock %}
+                </div>
+            </section>
+        </section>
+        <div id="footer-shim"></div>
+    </div>
+    {% include "layout/footer.html" %}
+{% endblock %}

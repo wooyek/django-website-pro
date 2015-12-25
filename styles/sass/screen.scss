@@ -1,0 +1,54 @@
+/*
+  In this file you should write your main styles. (or centralize your imports)
+*/
+@import "bootstrap_variables";
+@import "bootstrap/mixins/grid";
+@import "layout";
+@import "navbar";
+@import "alerts";
+@import "errors";
+@import "tables";
+@import "icons";
+
+
+.navbar .nav > li > a.nav-avatar {
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.nav-avatar img {
+  width: 36px;
+  height: 36px;
+  margin-left: 15px;
+}
+
+h1 {
+  margin-top: $font-size-h1;
+  margin-bottom: $font-size-h1;
+}
+
+#editor {
+  height: 525px;
+}
+
+.feature {
+  margin: $jumbotron-padding 0;
+}
+
+/*
+.features {
+  @include make-row();
+}
+.feature {
+  @include make-md-column(8);
+}
+.feature-icon {
+  @include make-md-column(3);
+  @include make-sm-column(2);
+}
+.feature-text {
+  @include make-md-column(9);
+  @include make-sm-column(10);
+}
+*/
+

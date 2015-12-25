@@ -1,0 +1,17 @@
+{% if messages %}
+    <section id="alerts">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    {% for message in messages %}
+                        <div class="alert alert-info dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <div>
+                                {{ message }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+    </section>
+{% endif %}

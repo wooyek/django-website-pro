@@ -1,0 +1,49 @@
+@import "compass";
+@import "bootstrap_variables";
+
+$error-padding: 40px;
+
+div.error-template .message, div.error-template .url {
+  margin: 1.8em 0;
+  font-size: 1.5em;
+  font-style: italic;
+  display: block;
+}
+
+div.e400, div.e402, div.e403, div.e404, div.e500, div.no_demo {
+  margin-top: $error-padding;
+  padding-left: 140px;
+  min-height: 200px;
+}
+
+div.e400 {
+  background: image-url("errors/400.png") no-repeat left top;
+}
+
+div.e402, div.no_demo {
+  background: image-url("errors/402.png") no-repeat left top;
+}
+
+div.e403 {
+  background: image-url("errors/403.png") no-repeat left top;
+}
+
+div.e404 {
+  background: image-url("errors/404.png") no-repeat left top;
+}
+
+div.e500 {
+  margin-top: 0;
+  background: image-url("errors/500.png") no-repeat left top;
+}
+
+/* http://bootsnipp.com/snippets/featured/simple-404-not-found-page */
+
+.error-actions {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.error-actions .btn {
+  margin-right: 10px;
+}

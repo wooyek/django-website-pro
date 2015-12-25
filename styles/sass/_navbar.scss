@@ -1,0 +1,19 @@
+@import "bootstrap_variables";
+@import "bootstrap/mixins/nav-vertical-align";
+@import "bootstrap/mixins/tab-focus";
+@import "bootstrap/mixins/vendor-prefixes";
+@import "bootstrap/mixins/forms";
+@import "bootstrap/forms";
+@import "bootstrap/navbar";
+@import "compass/utilities/sprites";
+
+
+// Pushes content below a fixed navigation bar
+#header-shim {
+  height: $navbar-height +1px;
+}
+
+.navbar {
+  z-index: 500;
+  overflow: visible;
+}

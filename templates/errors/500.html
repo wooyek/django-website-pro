@@ -1,0 +1,33 @@
+{% extends 'error_base.html' %}
+{% load i18n %}
+{% block title %}{% blocktrans %}Bład serwera{% endblocktrans %}{% endblock %}
+{% block body %}
+    <div class="container">
+    <div class="row">
+        <div class="col-md-12" style="margin: 20px 0 0">
+            <div class="jumbotron ">
+                <h1>Ups! Wystąpił błąd :(</h1>
+
+                <p>HTTP 500 Internal Server Error</p>
+
+                <div class='message'>{{ message }}</div>
+            </div>
+            <p>Przepraszamy za utrudnienia. Nasza wina — coś nie działa tak jak powinno. Do programistów został wysłany email w informacją o błędzie.</p>
+
+            <p>Możesz ponownie spróbować za chwilę — być może przyczyna błędu ustąpi sama. Jeśli nie ustąpiła spróbuj za kilka godzin, może do tego czasu
+                przygotujemy poprawkę.</p>
+
+            <p>Możesz przyśpieszyć naszą interwencję dzwoniąc do nas: 883 067 098, ewentualnie wyślij email
+                <a href="mailto:err@motylki.edu.pl?subject=Błąd! Proszę o naprawę. {{ message }}&body={{ message }}%20{{ request.url }}">err@bravelabs.pl</a>.
+            </p>
+
+            <div class="error-actions" style="margin: 20px 0">
+                <a href="/" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span> {% blocktrans %}Przejdź na stronę główną{% endblocktrans %} </a>
+                <a href="mailto:err@motylki.edu.pl?subject=Błąd! Proszę o naprawę. {{ message }}&body={{ message }}%20{{ request.url }}" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-envelope"></span> {% blocktrans %}Poproś o interwencję{% endblocktrans %}
+                </a>
+            </div>
+            <p>Jeszcze raz przepraszamy za utrudnienia.</p>
+        </div>
+    </div>
+{% endblock %}

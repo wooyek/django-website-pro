@@ -1,12 +1,8 @@
 # coding=utf-8
 # Created 2014 by Janusz Skonieczny
-import logging
-import os
+from .base import *
 
-logging.debug("Importing: %s" % __file__)
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ROOT_DIR = os.path.dirname(BASE_DIR)
+DEBUG = True
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -23,6 +19,10 @@ DATABASES = {
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
+ASSETS_DEBUG = DEBUG
+ASSETS_AUTO_BUILD = DEBUG
+ASSETS_URL = STATIC_URL
+ASSETS_MANIFEST = "json:{}".format(os.path.join(ASSETS_ROOT, "manifest.json"))
 
 # Sync task testing
 # http://docs.celeryproject.org/en/2.5/configuration.html?highlight=celery_always_eager#celery-always-eager

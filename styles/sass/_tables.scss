@@ -1,0 +1,11 @@
+@import "bootstrap_variables";
+
+td.message, td.message:hover, div.message-td {
+  height: floor(7 * $line-height-computed);
+  text-align: center;
+  background: #FFF;
+  vertical-align: middle !important;
+}
+td.message p:first-child {
+  padding-top: floor($line-height-computed /2);
+}
