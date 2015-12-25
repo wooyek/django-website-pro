@@ -27,7 +27,9 @@ ROOT_DIR = Path(__file__).parent.absolute()
 SRC_DIR = ROOT_DIR / 'src'
 VENV_DIR = ROOT_DIR / ".pve"
 VENV_BIN = VENV_DIR / ("Scripts" if is_win else "bin")
-MANAGE = '{} {} '.format(VENV_BIN / 'python', SRC_DIR / 'manage.py')
+PYTHON = VENV_BIN / 'python'
+PIP = VENV_BIN / 'pip'
+MANAGE = '{} {} '.format(PYTHON, SRC_DIR / 'manage.py')
 
 
 logging.basicConfig(format='%(asctime)s %(levelname)-7s %(thread)-5d %(filename)s:%(lineno)s | %(funcName)s | %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
@@ -95,23 +97,22 @@ def create_venv():
 def install_requirements():
     logging.info("Installing requirements")
     # import pip
-    pip = VENV_BIN / "pip"
 
     if is_win:
         binary = ROOT_DIR / "arch" / "psycopg2-2.6.1-cp35-none-win_amd64.whl"
-        cmd = str(pip) + " install " + str(binary)
+        cmd = str(PIP) + " install " + str(binary)
         logging.debug("RUN: %s" % cmd)
-        run(cmd, warn=True)
+        run(cmd)
 
     requirements = ROOT_DIR / "requirements.txt"
-    cmd = "{} install -r {} -vvv --upgrade".format(pip, requirements.absolute())
+    cmd = "{} install -r {} -vvv --upgrade".format(PIP, requirements.absolute())
     logging.debug("RUN: %s" % cmd)
-    run(cmd, warn=True)
+    run(cmd)
 
     requirements = ROOT_DIR / "requirements-dev.txt"
-    cmd = "{} install -r {} -vvv --upgrade".format(pip, requirements.absolute())
+    cmd = "{} install -r {} -vvv --upgrade".format(PIP, requirements.absolute())
     logging.debug("RUN: %s" % cmd)
-    run(cmd, warn=True)
+    run(cmd)
 
 
 @task
@@ -123,8 +124,8 @@ def setup_db(docs=None):
     if not data.exists():
         os.makedirs(str(data))
 
-    run(cmd + "migrate")
-    run(cmd + "loaddata "+str(ROOT_DIR / 'fixtures' / 'auth.json'))
+    run(MANAGE + "migrate")
+    run(MANAGE + "loaddata "+str(ROOT_DIR / 'fixtures' / 'auth.json'))
 
 
 @task
