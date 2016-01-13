@@ -4,6 +4,8 @@ gunicorn
 pytz
 BabelDjango
 django-debug-toolbar
+django-ipware
+
 
 # Assets
 django_assets

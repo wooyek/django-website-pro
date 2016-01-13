@@ -35,7 +35,7 @@ MANAGE = '{} {} '.format(PYTHON, SRC_DIR / 'manage.py')
 logging.basicConfig(format='%(asctime)s %(levelname)-7s %(thread)-5d %(filename)s:%(lineno)s | %(funcName)s | %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 logging.getLogger().setLevel(logging.INFO)
 logging.disable(logging.NOTSET)
-logging.info('Loading %s', __name__)
+logging.debug('Loading %s', __name__)
 
 
 def virtualenv_activate_this(context_path):
@@ -75,12 +75,14 @@ def activate_venv():
 
 
 @task
-def bootstrap(docs=None):
-    if docs:
-        run("Setup django project for development")
+def bootstrap():
+    """
+    Setup django project for development
+    """
     run('git init', warn=True)
     run('git add *', warn=True)
     run('git commit -m init', warn=True)
+    run('git remote add vagrant ssh://vagrant@127.0.0.1:2222/opt/{{project_name}}.git', warn=True)
     create_venv()
     install_requirements()
     run('bower install')
@@ -90,6 +92,9 @@ def bootstrap(docs=None):
 
 @task
 def create_venv():
+    """
+    Create virtual environment
+    """
     logging.debug("Creating venv: %s" % str(VENV_DIR))
     import venv
     venv.main([str(VENV_DIR)])
@@ -97,11 +102,15 @@ def create_venv():
 
 @task
 def install_requirements():
+    """
+    Install requirements and requirements-dev via pip
+    """
     logging.info("Installing requirements")
     # import pip
 
     if is_win:
-        binary = ROOT_DIR / "arch" / "psycopg2-2.6.1-cp35-none-win_amd64.whl"
+        # binary = ROOT_DIR / "arch" / "psycopg2-2.6.1-cp35-none-win_amd64.whl"
+        binary = ROOT_DIR / "arch" / "psycopg2-2.6.1-cp35-none-win32.whl"
         cmd = str(PIP) + " install " + str(binary)
         logging.debug("RUN: %s" % cmd)
         run(cmd)
@@ -118,9 +127,10 @@ def install_requirements():
 
 
 @task
-def setup_db(docs=None):
-    if docs:
-        run("Full database re-initialization")
+def setup_db():
+    """
+    Full database re-initialization
+    """
 
     data = ROOT_DIR / 'data'
     if not data.exists():
@@ -131,7 +141,10 @@ def setup_db(docs=None):
 
 
 @task
-def deploy(docs=False):
+def deploy():
+    """
+    Collect and compile assets, add, commit and push to production remote
+    """
     run("compass compile styles")
     run(MANAGE + "assets build")
     run(MANAGE + "collectstatic --noinput")
@@ -139,4 +152,24 @@ def deploy(docs=False):
     run("git commit -m deploy")
     run("git push production")
 
+if __name__ == "__main__":
+    print("""
+To finish setting up a project run:
 
+  inv boostrap
+
+
+To list all tasks run:
+
+  inv --list
+
+
+Install invoke first if not yet available
+
+  pip install invoke
+
+
+I you run on issues OSError, try installing a previous version
+
+  pip install invoke==0.11.1 -U
+    """)
