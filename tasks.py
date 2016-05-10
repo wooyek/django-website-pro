@@ -124,6 +124,11 @@ def install_requirements():
     logging.info("Installing requirements")
     # import pip
 
+    cmd = str(PYTHON) + " -m pip install --upgrade pip"
+    logging.debug("RUN: %s" % cmd)
+    run(cmd)
+
+
     if is_win:
         # binary = ROOT_DIR / "arch" / "psycopg2-2.6.1-cp35-none-win_amd64.whl"
         binary = ROOT_DIR / "arch" / "psycopg2-2.6.1-cp35-none-win32.whl"
