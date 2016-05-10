@@ -3,6 +3,17 @@
 
 import getpass
 import multiprocessing
+import socket
+
+HOSTNAME = socket.gethostname().lower()
+print("HOSTNAME", HOSTNAME)
+
+if HOSTNAME == "{{ project_name|slugify }}.example.com":
+    print("Gunicorn is setting DJANGO_SETTINGS_MODULE in environment")
+    raw_env = 'DJANGO_SETTINGS_MODULE=website.settings.production'
+elif HOSTNAME != "vagrant":
+    print("Gunicorn is setting DJANGO_SETTINGS_MODULE in environment")
+    raw_env = 'DJANGO_SETTINGS_MODULE=website.settings.staging'
 
 print("gunicorn user: ", getpass.getuser())
 APP_ROOT = "/var/www/{{ project_name }}"

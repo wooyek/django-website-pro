@@ -17,6 +17,7 @@
 
 import logging
 import os
+import shutil
 import sys
 from time import sleep
 from pathlib import Path
@@ -35,7 +36,22 @@ MANAGE = '{} {} '.format(PYTHON, SRC_DIR / 'manage.py')
 logging.basicConfig(format='%(asctime)s %(levelname)-7s %(thread)-5d %(filename)s:%(lineno)s | %(funcName)s | %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 logging.getLogger().setLevel(logging.INFO)
 logging.disable(logging.NOTSET)
-logging.debug('Loading %s', __name__)
+
+
+from pathlib import Path
+PROJECT_PATH = str(Path(__file__) / "src")
+
+
+def filter_deprecation_warnings(record):
+    warnings_to_suppress = [
+        'RemovedInDjango110Warning'
+    ]
+    msg = record.getMessage()
+    return not any([warn in msg
+                    for warn in warnings_to_suppress
+                    if not msg.startswith(PROJECT_PATH)])
+
+logging.getLogger('py.warnings').addFilter(filter_deprecation_warnings)
 
 
 def virtualenv_activate_this(context_path):
@@ -86,8 +102,8 @@ def bootstrap():
     create_venv()
     install_requirements()
     run('bower install')
-    setup_db()
-    run('compass compile styles')
+    db()
+    assets()
 
 
 @task
@@ -127,30 +143,115 @@ def install_requirements():
 
 
 @task
-def setup_db():
+def dump():
+    data = {
+        "auth": (
+            "auth.Group",
+            "auth.User",
+        ),
+    }
+    for file, what in data.items():
+        cmd = MANAGE + "dumpdata --indent=2 --natural-foreign --natural-primary {} > " + str(ROOT_DIR / 'fixtures' / '{}.json')
+        cmd = cmd.format(" ".join(what), file)
+        run(cmd)
+
+
+@task
+def db():
     """
     Full database re-initialization
     """
 
     data = ROOT_DIR / 'data'
+    shutil.rmtree(str(data), ignore_errors=True)
     if not data.exists():
         os.makedirs(str(data))
 
+
     run(MANAGE + "migrate")
-    run(MANAGE + "loaddata "+str(ROOT_DIR / 'fixtures' / 'auth.json'))
+    run(MANAGE + "loaddata " + str(ROOT_DIR / 'fixtures' / 'auth.json'))
+
+    if not is_win:
+        run("sudo chown -R :www-data /var/www/FastRate/data")
+        run("sudo chmod -R g+rw /var/www/FastRate/data")
 
 
 @task
+def assets():
+    """
+    Collect and build website assets
+    """
+    run("compass compile --force styles")
+    run(MANAGE + "assets build")
+    run(MANAGE + "collectstatic --noinput")
+    run("git add --all styles static assets templates", warn=True)
+    run("git commit -m build_assets", warn=True)
+
+
+@task
+def bump(patch=True):
+    run("git checkout develop")
+    run("git pull origin develop --verbose")
+    run("git push origin develop --verbose")
+    run("git checkout master")
+    run("git merge develop --verbose")
+    run("git pull origin master --verbose")
+    if patch:
+        run("bumpversion patch --no-tag")
+    else:
+        run("bumpversion minor")
+    run("git push origin master --verbose")
+    run("git checkout develop")
+    run("git merge master --verbose")
+    run("git push origin develop --verbose")
+
+
+@task
+def register_pypi():
+    run("git checkout master")
+    run("python setup.py register -r pypi")
+
+
+@task
+def upload_pypi():
+    run("git checkout master")
+    run("python setup.py sdist upload -r pypi")
+
+
+@task
+def upload_prd():
+    run("git checkout master")
+    run("git push production master  --verbose")
+
+
+@task(assets, bump, upload_prd)
 def deploy():
     """
     Collect and compile assets, add, commit and push to production remote
     """
-    run("compass compile styles")
-    run(MANAGE + "assets build")
-    run(MANAGE + "collectstatic --noinput")
-    run("git add styles static assets templates")
-    run("git commit -m deploy")
-    run("git push production")
+    run("git checkout develop")
+
+
+@task(assets, bump, upload_prd)
+def release():
+    """
+    Collect and compile assets, add, commit and push to production remote
+    """
+    run("git checkout develop")
+
+
+@task
+def trans():
+    """
+    Collect and compile translation strings
+    """
+    # http://babel.edgewall.org/wiki/BabelDjango
+    run("pybabel extract -F babel.cfg -o .tmp/messages.pot .")
+    # create locales firs
+    # http://babel.edgewall.org/wiki/BabelDjango#CreatingandUpdatingTranslationsCatalogs
+    run("pybabel update -i .tmp/messages.pot -d src/locale")
+    run("pybabel compile -D django -d src\locale")
+
 
 if __name__ == "__main__":
     print("""

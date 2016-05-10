@@ -20,13 +20,11 @@ django-filer
 
 #Async tasks
 celery
-django-celery
 
 # Misc
 django-bootstrap-form
 markdown
 django-guardian
-djrill
 django-reversion
 djangorestframework
 requests

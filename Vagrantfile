@@ -22,7 +22,7 @@ Vagrant.configure(2) do |config|
     config.vm.network "forwarded_port", host_ip: "127.0.0.1", host: 5432, guest: 5432
 
     # Supervisor web manager (custom port)
-    config.vm.network "forwarded_port", host_ip: "127.0.0.1", host: 9636, guest: 9636
+    config.vm.network "forwarded_port", host_ip: "127.0.0.1", host: 9001, guest: 9001
 
     # RabbitMQ
     # http://www.rabbitmq.com/management.html

@@ -5,14 +5,14 @@
 
 cat /vagrant/.ssh_key >> .ssh/authorized_keys
 
-sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get update -y
+sudo apt-get upgrade -y
 sudo apt-get install -y htop git unzip
 sudo apt-get install -y nginx apache2-utils 
-sudo apt-get install -y libxml2-dev libxslt1-dev build-essential
+sudo apt-get install -y libxml2-dev libxslt1-dev build-essential libpq-dev
 sudo apt-get install -y libjpeg8 libjpeg62-dev libfreetype6 libfreetype6-dev
 sudo apt-get install -y python python-dev python-pip python-virtualenv supervisor
-sudo apt-get install -y python3 python3-dev python3-pip
+sudo apt-get install -y python3 python3-dev python3-pip python3.4-venv
 
 # Change Time Zone
 # dpkg-reconfigure tzdata
@@ -51,10 +51,10 @@ sudo /etc/init.d/rabbitmq-server restart
 # ======================================
 
 cd /opt/
-git init --bare {{project_name}}.git
+sudo git init --bare {{project_name}}.git
 
 chmod g+w -R /opt/{{project_name}}.git/
-chown :vagrant -R /opt/{{project_name}}.git/
+chown :${USER} -R /opt/{{project_name}}.git/
 touch /opt/{{project_name}}.git/hooks/post-receive
 chmod +x /opt/{{project_name}}.git/hooks/post-receive
 
@@ -67,6 +67,7 @@ sudo supervisorctl update
 sudo supervisorctl status
 sudo supervisorctl restart {{project_name}}
 sudo supervisorctl restart {{project_name}}-celery
+sudo supervisorctl restart {{project_name}}-celery-beat
 sudo nginx -s reload
 EOL
 
@@ -75,7 +76,8 @@ EOL
 # Aplikacja WWW
 # ======================================
 
-mkdir -p /var/www/{{project_name}}
+sudo mkdir -p /var/www/{{project_name}}
+sudo chown ${USER} -R /var/www/FastRate
 cd /var/www/{{project_name}}
 
 mkdir /var/www/{{project_name}}/logs
@@ -88,49 +90,49 @@ sudo chmod -R g+rw /var/www/{{project_name}}/var
 
 mkdir /var/www/{{project_name}}/data
 sudo chmod -R g+rw /var/www/{{project_name}}/data
-sudo chown :www-data /var/www/{{project_name}}/data
+sudo chown -R :www-data /var/www/{{project_name}}/data
 
 
 # ======================================
 # Vagrant development setup
 # ======================================
 
-sudo chown -R vagrant /var/www/{{project_name}}/
-sudo chown -R vagrant /opt/{{project_name}}.git/
 
-sudo wget https://bootstrap.pypa.io/get-pip.py
-sudo python3 -m venv --without-pip --clear ~/.pve
+sudo python3 -m venv --clear ~/.pve
+# Initial website provisioning until push to deploy takes over
 cp /vagrant/requirements.txt /var/www/{{project_name}}/
 cp -r /vagrant/etc /var/www/{{project_name}}/
 cp -r /vagrant/src /var/www/{{project_name}}/
+cp -r /vagrant/templates /var/www/{{project_name}}/
+cp -r /vagrant/static /var/www/{{project_name}}/
+cp -r /vagrant/vendor /var/www/{{project_name}}/
+cp -r /vagrant/assets /var/www/{{project_name}}/
+cp -r /vagrant/fixtures /var/www/{{project_name}}/
 
-sudo ~/.pve/bin/python ./get-pip.py
+
 ~/.pve/bin/pip install -r /vagrant/requirements.txt
 ~/.pve/bin/pip install -r /vagrant/requirements-dev.txt
 
-sudo python3 -m venv --without-pip --clear /var/www/{{project_name}}/.pve
-sudo /var/www/{{project_name}}/.pve/bin/python ./get-pip.py
+python3 -m venv --clear /var/www/{{project_name}}/.pve
 /var/www/{{project_name}}/.pve/bin/pip install -r /var/www/{{project_name}}/requirements.txt
 
-# /var/www/{{project_name}}/.pve/bin/python src/manage.py syncdb
-# /var/www/{{project_name}}/.pve/bin/python src/manage.py migrate
-# /var/www/{{project_name}}/.pve/bin/python src/manage.py loaddata fixtures/auth.json
-rm get-pip.py
+/var/www/{{project_name}}/.pve/bin/python src/manage.py migrate
+/var/www/{{project_name}}/.pve/bin/python src/manage.py loaddata fixtures/auth.json
 
 
 # ======================================
 # Nginx & Supervisor
 # ======================================
 
-ln -s /var/www/{{project_name}}/etc/supervisor.conf /etc/supervisor/conf.d/{{project_name}}.conf
+sudo ln -s /var/www/{{project_name}}/etc/supervisor.conf /etc/supervisor/conf.d/{{project_name}}.conf
 sudo supervisorctl reread
 sudo supervisorctl update
 sudo supervisorctl status
 sudo /etc/init.d/supervisor restart
 
-ln -s /var/www/{{project_name}}/etc/nginx.conf /etc/nginx/sites-available/{{project_name}}.conf
-ln -s /etc/nginx/sites-available/{{project_name}}.conf /etc/nginx/sites-enabled/{{project_name}}.conf
-rm /etc/nginx/sites-enabled/default
-nginx -s reload
+sudo ln -s /var/www/{{project_name}}/etc/nginx.conf /etc/nginx/sites-available/{{project_name}}.conf
+sudo ln -s /etc/nginx/sites-available/{{project_name}}.conf /etc/nginx/sites-enabled/{{project_name}}.conf
+sudo rm /etc/nginx/sites-enabled/default
+sudo nginx -s reload
 
 
