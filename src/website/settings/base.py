@@ -54,12 +54,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'rest_framework',
     'rest_framework.authtoken',
     'django_assets',
     'bootstrapform',
     'babeldjango',
-    'debug_toolbar',
     'guardian',
     'reversion',
     'easy_thumbnails',
@@ -107,6 +107,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'website.wsgi.application'
 
+FIXTURE_DIRS = [os.path.join(ROOT_DIR, 'fixtures')]
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -125,6 +126,11 @@ DATABASES = {
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
+# https://docs.djangoproject.com/en/1.9/topics/i18n/translation/#how-django-discovers-language-preference
+LOCALE_PATHS = [
+    os.path.join(ROOT_DIR, 'locale')
+]
+
 USE_L10N = True
 USE_TZ = True
 
@@ -140,6 +146,7 @@ STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
 STATICFILES_DIRS = (
     ('assets', os.path.join(ROOT_DIR, 'assets')),
     ('vendor', os.path.join(ROOT_DIR, 'vendor')),
+    ('styles', os.path.join(ROOT_DIR, 'styles')),
 )
 
 
@@ -166,6 +173,10 @@ AUTHENTICATION_BACKENDS = (
     'guardian.backends.ObjectPermissionBackend',
 )
 
+LOGIN_URL = '/accounts/login/'
+LOGOUT_URL = '/accounts/logout/'
+LOGIN_REDIRECT_URL = '/'
+
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 DEBUG_TOOLBAR_CONFIG = {}
 
@@ -190,7 +201,3 @@ ASSETS_AUTO_BUILD = DEBUG
 ASSETS_MODULES = ('website.assets',)
 
 # Djrill: Mandrill Transactional Email for Django
-# https://github.com/brack3t/Djrill
-MANDRILL_API_KEY = "{{ MANDRILL_API_KEY|default:'TODO: Put your Mandrill api key here' }}"
-EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
-

@@ -4,6 +4,7 @@ Template for Django project, ~~includes~~ will include all the components that u
 Usage:
 
 ```bash
+pip install invoke django
 django-admin startproject --extension=py,md,sh,conf --template=https://github.com/wooyek/django-website-pro/archive/master.zip MyProject
 cd MyProject
 inv bootstrap
