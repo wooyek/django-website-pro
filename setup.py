@@ -17,7 +17,7 @@ install_requires = parse_requirements(
 with open("README.rst") as readme:
     long_description = readme.read()
 
-version = "0.2.1"
+version = "0.2.2"
 
 setup_kwargs = {
     'name': "{{ project_name|slugify }}",
