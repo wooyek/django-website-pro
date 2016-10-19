@@ -24,7 +24,7 @@ celery
 # Misc
 django-bootstrap-form==3.2.1
 markdown
-django-guardian
+django-guardian==1.4.6
 django-reversion
 djangorestframework==3.4.7
 requests
