@@ -10,7 +10,7 @@ django-ipware
 # Assets
 django-assets==0.12
 webassets==0.12.0
-yuicompressor
+yuicompressor==2.4.8
 
 # Images
 easy-thumbnails
