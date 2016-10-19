@@ -3,7 +3,7 @@ Django==1.10.2
 gunicorn==19.6.0
 pytz==2016.7
 BabelDjango==0.2.2
-django-debug-toolbar
+django-debug-toolbar==1.6
 django-ipware==1.1.6
 
 
