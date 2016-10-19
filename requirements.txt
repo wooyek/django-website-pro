@@ -26,7 +26,7 @@ django-bootstrap-form
 markdown
 django-guardian
 django-reversion
-djangorestframework
+djangorestframework==3.4.7
 requests
 psycopg2
 
