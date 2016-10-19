@@ -1,7 +1,7 @@
 # Core django + esentials
 Django==1.10.2
 gunicorn
-pytz
+pytz==2016.7
 BabelDjango
 django-debug-toolbar
 django-ipware
