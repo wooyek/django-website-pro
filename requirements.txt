@@ -25,7 +25,7 @@ celery==3.1.24
 django-bootstrap-form==3.2.1
 markdown==2.6.7
 django-guardian==1.4.6
-django-reversion
+django-reversion==2.0.6
 djangorestframework==3.4.7
 requests==2.11.1
 psycopg2==2.6.2
