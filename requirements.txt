@@ -1,6 +1,6 @@
 # Core django + esentials
 Django==1.10.2
-gunicorn
+gunicorn==19.6.0
 pytz==2016.7
 BabelDjango==0.2.2
 django-debug-toolbar
