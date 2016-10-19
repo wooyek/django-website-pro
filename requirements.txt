@@ -14,7 +14,7 @@ yuicompressor
 
 # Images
 easy-thumbnails
-sorl-thumbnail
+sorl-thumbnail==12.3
 pillow==3.4.2
 django-filer
 
