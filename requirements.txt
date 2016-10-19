@@ -15,7 +15,7 @@ yuicompressor
 # Images
 easy-thumbnails
 sorl-thumbnail
-pillow
+pillow==3.4.2
 django-filer
 
 #Async tasks
