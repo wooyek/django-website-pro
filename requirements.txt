@@ -2,7 +2,7 @@
 Django==1.10.2
 gunicorn
 pytz==2016.7
-BabelDjango
+BabelDjango==0.2.2
 django-debug-toolbar
 django-ipware
 
