@@ -16,7 +16,7 @@ yuicompressor
 easy-thumbnails
 sorl-thumbnail
 pillow
-django-filer
+django-filer==1.2.5
 
 #Async tasks
 celery
