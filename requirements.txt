@@ -25,7 +25,7 @@ celery
 django-bootstrap-form
 markdown
 django-guardian
-django-reversion
+django-reversion==2.0.6
 djangorestframework
 requests
 psycopg2
