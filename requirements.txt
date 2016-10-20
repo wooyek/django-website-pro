@@ -28,5 +28,5 @@ django-guardian
 django-reversion
 djangorestframework
 requests
-psycopg2
+psycopg2==2.6.2
 
