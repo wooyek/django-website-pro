@@ -9,7 +9,7 @@ django-ipware
 
 # Assets
 django_assets
-webassets
+webassets==0.12.0
 yuicompressor
 
 # Images
