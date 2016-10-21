@@ -2,7 +2,7 @@
 Django
 gunicorn
 pytz
-BabelDjango
+BabelDjango==0.2.2
 django-debug-toolbar
 django-ipware
 
