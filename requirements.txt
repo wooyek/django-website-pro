@@ -27,6 +27,6 @@ markdown==2.6.7
 django-guardian
 django-reversion==2.0.6
 djangorestframework
-requests
+requests==2.11.1
 psycopg2==2.6.2
 
