@@ -4,7 +4,7 @@ gunicorn
 pytz
 BabelDjango==0.2.2
 django-debug-toolbar
-django-ipware
+django-ipware==1.1.6
 
 
 # Assets
