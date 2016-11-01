@@ -1,5 +1,5 @@
 # Core django + esentials
-Django
+Django==1.10.3
 gunicorn>=19.6
 pytz
 BabelDjango>=0.2
