@@ -8,7 +8,7 @@ django-ipware==1.1.6
 
 
 # Assets
-django_assets
+django-assets==0.12
 webassets
 yuicompressor==2.4.8
 
