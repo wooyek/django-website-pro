@@ -1,32 +1,32 @@
 # Core django + esentials
 Django
-gunicorn==19.6.0
+gunicorn>=19.6
 pytz
-BabelDjango==0.2.2
+BabelDjango>=0.2
 django-debug-toolbar
-django-ipware==1.1.6
+django-ipware>=1.1
 
 
 # Assets
-django-assets==0.12
+django-assets>=0.12
 webassets
-yuicompressor==2.4.8
+yuicompressor>=2.4
 
 # Images
-easy-thumbnails==2.3
-sorl-thumbnail==12.3
+easy-thumbnails>=2.3
+sorl-thumbnail>=12.3
 pillow
-django-filer==1.2.5
+django-filer>=1.2
 
 #Async tasks
-celery==3.1.24
+celery>=3.1
 
 # Misc
 django-bootstrap-form
-markdown==2.6.7
-django-guardian==1.4.6
-django-reversion==2.0.6
-djangorestframework==3.5.2
+markdown>=2.6
+django-guardian>=1.4
+django-reversion>=2.0
+djangorestframework>=3.5
 requests
-psycopg2==2.6.2
+psycopg2>=2.6
 
