@@ -1,7 +1,7 @@
 # Core django + esentials
 Django>=1.10
 gunicorn>=19.6
-pytz
+pytz==2016.10
 BabelDjango>=0.2
 django-debug-toolbar
 django-ipware>=1.1
